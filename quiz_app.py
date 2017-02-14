@@ -2,7 +2,7 @@
 
 Usage:
      
-     quiz_app quiz list <view>
+     quiz_app quizlist 
      quiz_app import <path_to_quiz_JSON>
      quiz_app quiz take <quiz_name>
      quiz_app (-h|--help)
@@ -11,16 +11,11 @@ Usage:
 
 import cmd
 from docopt import docopt, DocoptExit
+import time
+import json
+   
 
-def load_json_config():
-    import json
-    
-    source = '''
-        {"--force": true,
-         "--timeout": "10",
-         "--baud": "9600"}
-    '''
-    return json.loads(source)
+
 
 def docopt_cmd(func):
     """
@@ -53,19 +48,19 @@ class QuizApp(cmd.Cmd, dict):
     
    
 
-    def __init__(self):
-        super(QuizApp, self).__init__()
-        
-     
 
     @docopt_cmd
     
     def do_quizlist(self, arg):
-        """Usage: quiz list <view> """
-        
-        print(arg)
-    
+        """Usage: quizlist """
+           
+        with open ('quizlist.json') as json_data:
+             data = json.load(json_data)
+             for k in data: 
+       
+                 print str(k)
 
+   
    
 
 
