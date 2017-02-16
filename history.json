@@ -1,0 +1,19 @@
+{
+"question one": {
+		"text": "Who wears a black cap?",
+		"A": "Batman",                               
+                
+		"B": "Superman"
+               
+  },
+"question two":{
+               "text" : "Avengers series is from which company",
+       
+                "A": "DC Comics",
+                "B": "Marvel"
+ 
+
+   }
+}
+
+
