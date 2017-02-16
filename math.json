@@ -1,0 +1,36 @@
+{
+"question one": {
+		
+		"text":"Which of the following is not a Marvel product? ?",
+		"A": "Avengers",
+		"B": "Batman",
+		"C": "X-MEN"
+  },
+"question two": {
+		
+		"text": "Who is not Captain America's  sidekick?",
+		"A": "Bucky",
+		"B": "Falcon",
+                "C": "Bucky Roberts"          
+ },
+"question three": {
+		
+		"text": "Who plays Morpheus in The Matrix?",
+		"A": "Laurence Fishburne",
+		"B": "Hugh Jackman",
+                "C": "Keanu Reeves"
+ },
+"question four": {
+		"text": "Kevin Spacey appeared in all these except one ?",
+		"A": "House of Cards",
+		"B": "Nine Lives",
+                "C": "Home"
+ },
+"question three": {
+		"text": "Who was the boov Ooh! in Home movie?",
+		"A": "Jim Parsons",
+		"B": "Rihanna",
+                "C": "Johnny Galecki"
+ }
+}
+
