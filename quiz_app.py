@@ -16,8 +16,6 @@ import json
 import os
 from firebase import firebase
 
-
-
 def docopt_cmd(func):
     """
     This decorator describes the annotation @docopt_cmd
@@ -39,11 +37,11 @@ def docopt_cmd(func):
     fn.__dict__.update(func.__dict__)
     return fn
 
-
 class QuizApp(cmd.Cmd, dict):
     intro = 'Welcome to Quiz_app\n'
        
-    prompt = '(quiz_app)' 
+    prompt = '(trivia)' 
+    score =0
    
     @docopt_cmd    
     def do_quizlist(self, arg):
@@ -61,62 +59,50 @@ class QuizApp(cmd.Cmd, dict):
       path_to_json = "/home/janet/Desktop/docopt"
       all_json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
         #checks for every file with extension .json available for import by user
-      print all_json_files 
-      for r in all_json_files :
-       with open(os.path.join(path_to_json, r)) as all_json_files :
-        # do something with your json; I'll just print
-             data = json.load(all_json_files  )
-             
-             for k,v in data.items(): 
-                    print (str(k))
-                    print (str(v))
-                
-           
-           
-           
-     
+      
+      #print arg 
+      with open(arg)as json_data:
+                data = json.load(json_data)  
+                self.do_quiztake(arg)
+      
+      
     def do_quiztake(self, arg):
         """Usage: quiz take<quiz_name> """
         score = 0
-        ans = 0
-        choices = "A", "B", "C"
-        if arg == "history ":
-            with open('history.json') as json_data:
-                data = json.load(json_data)
-                print str(data)
-        elif arg == "english":
-            with open('english.json') as json_data:
-                data = json.load(json_data)     
-                for k in data: 
-                    print str(k)
-
-        elif arg == "math":
-            
-            with open('math.json') as json_data:
+        ans = ""
+        
+        path_to_json = "/home/janet/Desktop/docopt"
+        all_json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
+        #checks for every file with extension .json available for import by user
+      
+        #print arg 
+        with open(arg)as json_data:
                 data = json.load(json_data) 
-                print (data['question one'])
-                time.sleep(5)
-                raw_input(arg)
-                if arg == "B":
-                    score = score + 1
-                    print "Correct"
-                else:
-                    print "Incorrect"
-                print (data[str('question two')])
-                time.sleep(5)
-                if arg == "B":
-                    score = score + 1
-                    print "Correct"
-                else:
-                    print "Incorrect"
-                time.sleep(5)
-                print score
-    
-                
+                          
+                for k in data["question"]:
+                    
+                    print k['text']
+                    print "A: " + k["A"]
+                    print "B: " + k["B"]
+                    print "C: " + k["C"]
+                   
+                    ans = raw_input("Whats your answer:")
+                   
+                    a = k["answer"]
+                    if ans == a:
+                       print ("correct")
+                       score +=1
+                    else: 
+                        print("Incorrect")
+                    print("Your score is %s" % (score)) #outputs score
+                    
+          
+                     
     def do_quit(self, arg):
 
         print('Goodbye')
         exit()
+     
 
 
 def main():
