@@ -1,0 +1,21 @@
+{
+"question one": {
+		"text": "What is the plural of octupus ?",
+		"A": "octopuses",
+		"B": "octupi"
+  },
+"question two": {
+		"text": "Who was the first man to step on the moon ?",
+		"A": "Niel Armstrong",
+		"B": "Buzz Aldrin"
+                
+ },
+"question three": {
+		"text": "Who said,--If I have seen further than others, it is by standing upon the shoulders of giants.--?",
+		"A": "Isaac Newton",
+		"B": "Stephen Hawking" 
+ }
+}
+	
+    
+
