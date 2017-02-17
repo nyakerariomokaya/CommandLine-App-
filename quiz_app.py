@@ -14,7 +14,8 @@ from docopt import docopt, DocoptExit
 import time
 import json
 import os
-from firebase import firebase
+import shutil
+from clint.textui import colored
 
 def docopt_cmd(func):
     """
@@ -41,41 +42,35 @@ class QuizApp(cmd.Cmd, dict):
     intro = 'Welcome to Quiz_app\n'
        
     prompt = '(trivia)' 
-    score =0
+    
    
     @docopt_cmd    
     def do_quizlist(self, arg):
         """Usage: quizlist """
-           
-        with open('quizlist.json') as json_data:
-            data = json.load(json_data)
-             
-            for k in data: 
-                print str(k)
+ 
+        for file in os.listdir("."):
+            if file.endswith(".json"):
+               print(file)
                 
     def do_import(self, arg):
-      """Usage:import <path_to_quiz_JSON>"""
-
-      path_to_json = "/home/janet/Desktop/docopt"
-      all_json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
-        #checks for every file with extension .json available for import by user
+ 
+        """Usage:import <path_to_quiz_JSON>"""
+        dest = "."
+	if os.path.isfile(arg):
+        	shutil.copy(arg,dest)
+         
+	else:
+		print colored.red( "File doesn't exist")   
       
-      #print arg 
-      with open(arg)as json_data:
-                data = json.load(json_data)  
-                self.do_quiztake(arg)
       
       
     def do_quiztake(self, arg):
         """Usage: quiz take<quiz_name> """
         score = 0
         ans = ""
-        
-        path_to_json = "/home/janet/Desktop/docopt"
-        all_json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
-        #checks for every file with extension .json available for import by user
+        self.do_quizlist(arg)
       
-        #print arg 
+        
         with open(arg)as json_data:
                 data = json.load(json_data) 
                           
@@ -90,11 +85,11 @@ class QuizApp(cmd.Cmd, dict):
                    
                     a = k["answer"]
                     if ans == a:
-                       print ("correct")
+                       print colored.blue ("correct!")
                        score +=1
                     else: 
-                        print("Incorrect")
-                    print("Your score is %s" % (score)) #outputs score
+                        print colored.red("Incorrect!")
+                    print colored.green("Your score is %s" % (score)) #outputs score
                     
           
                      
@@ -110,4 +105,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+   main()
