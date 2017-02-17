@@ -17,6 +17,7 @@ import os
 import shutil
 from clint.textui import colored
 
+
 def docopt_cmd(func):
     """
     This decorator describes the annotation @docopt_cmd
@@ -38,39 +39,37 @@ def docopt_cmd(func):
     fn.__dict__.update(func.__dict__)
     return fn
 
+
 class QuizApp(cmd.Cmd, dict):
     intro = 'Welcome to Quiz_app\n'
        
     prompt = '(trivia)' 
-    
    
-    @docopt_cmd    
+    @docopt_cmd
+    #this function searches for all quiz files and displays them    
     def do_quizlist(self, arg):
         """Usage: quizlist """
+        
  
         for file in os.listdir("."):
             if file.endswith(".json"):
-               print(file)
-                
+                print(file)
+    #this functions enables a user to import a json file from a choice path           
     def do_import(self, arg):
- 
-        """Usage:import <path_to_quiz_JSON>"""
+         """Usage:import <path_to_quiz_JSON>"""
         dest = "."
-	if os.path.isfile(arg):
-        	shutil.copy(arg,dest)
+    if os.path.isfile(arg):
+        shutil.copy(arg, dest)
          
-	else:
-		print colored.red( "File doesn't exist")   
-      
-      
-      
+    else:
+        print colored.red("File doesn't exist")   
+    #this function enables a user to take a test and receive scores  
     def do_quiztake(self, arg):
         """Usage: quiz take<quiz_name> """
         score = 0
         ans = ""
         self.do_quizlist(arg)
       
-        
         with open(arg)as json_data:
                 data = json.load(json_data) 
                           
@@ -85,24 +84,21 @@ class QuizApp(cmd.Cmd, dict):
                    
                     a = k["answer"]
                     if ans == a:
-                       print colored.blue ("correct!")
-                       score +=1
+                        print colored.blue("correct!")
+                        score += 1
                     else: 
                         print colored.red("Incorrect!")
-                    print colored.green("Your score is %s" % (score)) #outputs score
-                    
-          
-                     
+                    print colored.green("Your score is %s" % (score))  
+                    # outputs score
+       
     def do_quit(self, arg):
 
         print('Goodbye')
         exit()
-     
-
-
+ 
+ 
 def main():
     QuizApp().cmdloop()
 
-
 if __name__ == '__main__':
-   main()
+    main()
